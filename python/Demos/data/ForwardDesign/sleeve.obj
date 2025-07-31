@@ -1,0 +1,47 @@
+# Rectangle boundary vertices
+v 0 0 0
+v 10 0 0
+v 10 40 0
+v 0 40 0
+
+# Diamond 1 (center 5,30; a=3, b=2)
+v 5 28 0   # 5
+v 8 30 0   # 6
+v 5 32 0   # 7
+v 2 30 0   # 8
+
+# Diamond 2 (center 5,20; a=3, b=2)
+v 5 18 0   # 9
+v 8 20 0   # 10
+v 5 22 0   # 11
+v 2 20 0   # 12
+
+# Diamond 3 (center 5,10; a=3, b=2)
+v 5 8 0    # 13
+v 8 10 0   # 14
+v 5 12 0   # 15
+v 2 10 0   # 16
+
+# Rectangle boundary edges
+l 1 2
+l 2 3
+l 3 4
+l 4 1
+
+# Diamond 1 edges
+l 5 6
+l 6 7
+l 7 8
+l 8 5
+
+# Diamond 2 edges
+l 9 10
+l 10 11
+l 11 12
+l 12 9
+
+# Diamond 3 edges
+l 13 14
+l 14 15
+l 15 16
+l 16 13

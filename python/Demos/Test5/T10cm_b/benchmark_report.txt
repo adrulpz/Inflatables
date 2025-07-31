@@ -1,0 +1,23 @@
+InflatableSheet setVars	0.00282717	1
+Newton iterations	242.233	1
+    InflatableSheet energy	0.000692844	1
+    InflatableSheet gradient	0.0013628	1
+    Newton iterate	242.23	500
+        Backtracking	3.49559	500
+            InflatableSheet energy	0.653941	1025
+            InflatableSheet setVars	2.78448	1025
+        Compute descent direction	229.183	500
+            newton_step	229.181	500
+                Newton solve	216.367	501
+                    CHOLMOD Numeric Factorize	211.121	500
+                    Solve	4.80218	501
+                        CHOLMOD Backsub	4.55323	500
+                        CHOLMOD Numeric Factorize	0.018436	1
+                        CHOLMOD Symbolic Factorize	0.158069	1
+                hessEval	12.7684	500
+                largestMagnitudeEigenvalue	0.0174339	1
+        Preamble	9.34923	500
+            Callback	8.27386	500
+            InflatableSheet energy	0.297896	500
+            InflatableSheet gradient	0.656121	500
+Full time	242.277

@@ -1,0 +1,21 @@
+Target points:
+[0. 5. 0.]
+[ 0. 10.  0.]
+[ 0. 15.  0.]
+[10.  5.  0.]
+[10. 10.  0.]
+[10. 15.  0.]
+
+Tracked indices and their rest positions:
+Index: 28, Rest position: [0.      5.02513 0.     ]
+Distance to target: 0.025129999999999875
+Index: 528, Rest position: [-0.      10.05025  0.     ]
+Distance to target: 0.05025000000000013
+Index: 584, Rest position: [-0.      14.97487  0.     ]
+Distance to target: 0.025130000000000763
+Index: 310, Rest position: [10.       5.02513  0.     ]
+Distance to target: 0.025129999999999875
+Index: 497, Rest position: [10.      10.05025  0.     ]
+Distance to target: 0.05025000000000013
+Index: 715, Rest position: [10.      14.97487  0.     ]
+Distance to target: 0.025130000000000763

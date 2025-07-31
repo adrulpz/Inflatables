@@ -48,7 +48,7 @@ def allEnergies(obj):
 
 def allGradientNorms(obj, freeVariables = None):
     if freeVariables is None:
-        freeVariables = np.arange(obj.numVars(), dtype=np.int)
+        freeVariables = np.arange(obj.numVars(), dtype=int)
     return {name: np.linalg.norm(obj.gradient(etype)[freeVariables]) for name, etype in obj.EnergyType.__members__.items()}
 
 def loadObj(path):

@@ -47,7 +47,7 @@ def wallMeshComponents(sheet, distinctTubeComponents = False):
     """
     m = sheet.mesh()
     nt = m.numTris()
-    iwt = np.array([sheet.isWallTri(ti) for ti in range(nt)], dtype=np.bool)
+    iwt = np.array([sheet.isWallTri(ti) for ti in range(nt)], dtype=bool)
     dual_edges = [(u, v) for u in range(nt)
                          for v in m.trisAdjTri(u)
                          if iwt[u] == iwt[v]]
@@ -55,15 +55,15 @@ def wallMeshComponents(sheet, distinctTubeComponents = False):
     numComponents, components = scipy.sparse.csgraph.connected_components(adj)
     wallLabels = components[iwt].copy()
 
-    renumber = np.empty(numComponents, dtype=np.int)
+    renumber = np.empty(numComponents, dtype=int)
     renumber[:] = -1 # This assigns all non-wall triangles the "component" -1
     uniqueWallLabels = np.unique(wallLabels)
     numWallComponents = len(uniqueWallLabels)
-    renumber[uniqueWallLabels] = np.arange(numWallComponents, dtype=np.int)
+    renumber[uniqueWallLabels] = np.arange(numWallComponents, dtype=int)
 
     if distinctTubeComponents:
         uniqueTubeLabels = np.unique(components[~iwt])
-        renumber[uniqueTubeLabels] = -1 - np.arange(len(uniqueTubeLabels), dtype=np.int)
+        renumber[uniqueTubeLabels] = -1 - np.arange(len(uniqueTubeLabels), dtype=int)
 
     components = renumber[components]
     return numWallComponents, components
@@ -110,7 +110,7 @@ def remeshWallRegions(m, fuseMarkers, fuseSegments, pointSetLiesInWall, permitWa
     triCenters = m.vertices()[m.triangles()].mean(axis=1)
 
     numWalls = 0
-    wallLabels = -np.ones(m.numTris(), dtype=np.int)
+    wallLabels = -np.ones(m.numTris(), dtype=int)
     for c in range(ncomponents):
         component_tris = np.flatnonzero(components == c)
         centers = triCenters[component_tris]
@@ -149,7 +149,7 @@ def remeshWallRegions(m, fuseMarkers, fuseSegments, pointSetLiesInWall, permitWa
             wmF = wallMesh.triangles()
             triCenters = wmV[wmF].mean(axis=1)
 
-            keepTri = np.zeros(wallMesh.numTris(), dtype=np.bool)
+            keepTri = np.zeros(wallMesh.numTris(), dtype=bool)
             keptComponents = 0
             for c in range(nc):
                 component_tris = np.flatnonzero(wallMeshComponents == c)
@@ -330,7 +330,7 @@ def meshWallsAndTubes(fusing_V, fusing_E, m, isWallTri, holePoints, tubePoints, 
     # For meshes without finite-thickness wall regions, we are done
     # (and all vertices in fusing_V are wall/wall boundary vertices.)
     if not np.any(isWallTri):
-        isWallVtx = np.array(fuseMarkers, dtype=np.bool)
+        isWallVtx = np.array(fuseMarkers, dtype=bool)
         return mTubes, isWallVtx, isWallVtx
 
     ############################################################################
@@ -377,7 +377,7 @@ def meshWallsAndTubes(fusing_V, fusing_E, m, isWallTri, holePoints, tubePoints, 
 
     # Also include fused vertices marked inside the tube mesh (i.e., those
     # fused by zero-width curves)
-    addVertices(wallBoundaryVertices, mTubes.vertices()[np.array(fuseMarkers, dtype=np.bool)])
+    addVertices(wallBoundaryVertices, mTubes.vertices()[np.array(fuseMarkers, dtype=bool)])
 
     wallVertices = wallVertices | wallBoundaryVertices
 
@@ -429,7 +429,7 @@ def newMeshingAlgorithm(sdfVertices, sdfTris, sdf, customPts, customEdges, triAr
         triCenters = m.vertices()[m.triangles()].mean(axis=1)
     # m.save('without_holes.msh')
 
-    wallLabels = -np.ones(m.numTris(), dtype=np.int) # assign -1 to tubes
+    wallLabels = -np.ones(m.numTris(), dtype=int) # assign -1 to tubes
 
     # Next, pick a point within each air tube
     for c in range(ncomponents):
@@ -527,7 +527,7 @@ def forward_design_mesh(V, E, fusedPts, holePts, triArea):
     sdf = c
     fs = field_sampler.FieldSampler(minit)
     if len(fusedPts) > 0:
-        fusedComponents = np.array(np.unique(fs.sample(fusedPts, c)), dtype=np.int)
+        fusedComponents = np.array(np.unique(fs.sample(fusedPts, c)), dtype=int)
         sdf[c == fusedComponents] = -1
 
     return newMeshingAlgorithm(sdfV, sdfF, sdf, V, E, triArea=triArea)
